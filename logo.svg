@@ -1,0 +1,17 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" width="200" height="40">
+  <defs>
+    <linearGradient id="lineGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6B35;stop-opacity:0.3" />
+    </linearGradient>
+  </defs>
+  <rect x="2" y="18" width="3" height="20" rx="1" fill="url(#lineGrad)"/>
+  <rect x="7" y="12" width="3" height="26" rx="1" fill="url(#lineGrad)"/>
+  <rect x="12" y="6" width="3" height="32" rx="1" fill="url(#lineGrad)"/>
+  <rect x="17" y="2" width="3" height="36" rx="1" fill="url(#lineGrad)"/>
+  <rect x="22" y="8" width="3" height="30" rx="1" fill="url(#lineGrad)"/>
+  <rect x="27" y="14" width="3" height="24" rx="1" fill="url(#lineGrad)"/>
+  <rect x="32" y="20" width="3" height="18" rx="1" fill="url(#lineGrad)"/>
+  <text x="44" y="28" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">ИК</text>
+  <text x="68" y="28" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#FF6B35">Сушка</text>
+</svg>
