@@ -1008,6 +1008,17 @@ body {
   transform: translateY(0);
 }
 
+/* ========== FOOD LANDING — CHECKERBOARD CARDS ========== */
+.food-landing .cards-grid .card:nth-child(even),
+.food-landing .margin-grid .margin-item:nth-child(even) {
+  background: rgba(48, 66, 93, 0.55);
+}
+
+.food-landing .cards-grid .card:nth-child(even):hover,
+.food-landing .margin-grid .margin-item:nth-child(even):hover {
+  background: var(--bg-card-hover);
+}
+
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
   .hero {
