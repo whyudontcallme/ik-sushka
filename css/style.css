@@ -985,6 +985,26 @@ body {
   font-weight: 600;
 }
 
+.footer__contacts {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer__link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.footer__link:hover {
+  color: var(--accent);
+}
+
 /* ========== ANIMATIONS ========== */
 @keyframes fadeInUp {
   from {
