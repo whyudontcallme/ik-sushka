@@ -70,12 +70,12 @@
     <section class="section cta-section" id="cta"><div class="container">
       <div class="section__header"><span class="section__badge">Консультация</span><h2 class="cta-section__title">Нужно высушить химический продукт до <span>нормативной влажности</span>?</h2><p class="cta-section__text">Опишите материал и требования к сушке — мы оценим применимость инфракрасной технологии и предложим следующий шаг.</p></div>
       <form class="form" onsubmit="handleSubmit(event, 'chemical')">
-        <div class="form__row"><input type="text" class="form__input" placeholder="Имя" required><input type="text" class="form__input" placeholder="Компания" required></div>
-        <div class="form__row"><input type="tel" class="form__input" placeholder="Телефон" required><input type="email" class="form__input" placeholder="E-mail" required></div>
-        <div class="form__row"><input type="text" class="form__input" placeholder="Тип материала" required><input type="text" class="form__input" placeholder="Исходная влажность (%)"></div>
-        <div class="form__row"><input type="text" class="form__input" placeholder="Требуемая влажность (%)"><input type="text" class="form__input" placeholder="Плановая производительность"></div>
-        <div class="form__row"><input type="text" class="form__input" placeholder="Температурные ограничения"><select class="form__select"><option value="">Есть ли растворители?</option><option value="yes">Да</option><option value="no">Нет</option><option value="maybe">Не знаю</option></select></div>
-        <textarea class="form__textarea" placeholder="Комментарий / файл ТЗ"></textarea>
+        <div class="form__row"><input type="text" class="form__input" placeholder="Имя" name="Имя" required><input type="text" class="form__input" placeholder="Компания" name="Компания" required></div>
+        <div class="form__row"><input type="tel" class="form__input" placeholder="Телефон" name="Телефон" required><input type="email" class="form__input" placeholder="E-mail" name="E-mail" required></div>
+        <div class="form__row"><input type="text" class="form__input" placeholder="Тип материала" name="Тип материала" required><input type="text" class="form__input" placeholder="Исходная влажность (%)" name="Исходная влажность (%)"></div>
+        <div class="form__row"><input type="text" class="form__input" placeholder="Требуемая влажность (%)" name="Требуемая влажность (%)"><input type="text" class="form__input" placeholder="Плановая производительность" name="Плановая производительность"></div>
+        <div class="form__row"><input type="text" class="form__input" placeholder="Температурные ограничения" name="Температурные ограничения"><select class="form__select" name="Есть ли растворители?"><option value="">Есть ли растворители?</option><option value="yes">Да</option><option value="no">Нет</option><option value="maybe">Не знаю</option></select></div>
+        <textarea class="form__textarea" placeholder="Комментарий / файл ТЗ" name="Комментарий / файл ТЗ"></textarea>
         <button type="submit" class="btn btn-primary btn--full">Обсудить задачу с инженером</button>
       </form>
     </div></section>

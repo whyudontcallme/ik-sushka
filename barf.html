@@ -92,11 +92,11 @@
     <section class="section cta-section" id="cta"><div class="container">
       <div class="section__header"><span class="section__badge">Расчёт</span><h2 class="cta-section__title">Хотите понять себестоимость <span>1 кг сушёного лакомства</span>?</h2><p class="cta-section__text">Оставьте данные по сырью: вид продукта, влажность, цена сырья, плановый объём производства и доступный источник энергии. Мы подготовим предварительный расчёт оборудования и экономики производства.</p></div>
       <form class="form" onsubmit="handleSubmit(event, 'barf')">
-        <div class="form__row"><input type="text" class="form__input" placeholder="Имя" required><input type="tel" class="form__input" placeholder="Телефон" required></div>
-        <div class="form__row"><input type="text" class="form__input" placeholder="Компания"><select class="form__select"><option value="">Какое сырьё хотите сушить?</option><option value="meat">Мясо</option><option value="fish">Рыба</option><option value="offal">Субпродукты</option><option value="mix">Смесь</option></select></div>
-        <div class="form__row"><input type="text" class="form__input" placeholder="Мясо / рыба / субпродукты / смесь"><input type="text" class="form__input" placeholder="Плановая производительность"></div>
-        <div class="form__row"><select class="form__select"><option value="">Есть ли помещение?</option><option value="yes">Да</option><option value="no">Нет</option></select><select class="form__select"><option value="">Газ / электричество / дизель</option><option value="gas">Газ</option><option value="electric">Электричество</option><option value="diesel">Дизель</option></select></div>
-        <textarea class="form__textarea" placeholder="Комментарий"></textarea>
+        <div class="form__row"><input type="text" class="form__input" placeholder="Имя" name="Имя" required><input type="tel" class="form__input" placeholder="Телефон" name="Телефон" required></div>
+        <div class="form__row"><input type="text" class="form__input" placeholder="Компания" name="Компания"><select class="form__select" name="Сырьё"><option value="">Какое сырьё хотите сушить?</option><option value="meat">Мясо</option><option value="fish">Рыба</option><option value="offal">Субпродукты</option><option value="mix">Смесь</option></select></div>
+        <div class="form__row"><input type="text" class="form__input" placeholder="Мясо / рыба / субпродукты / смесь" name="Сырьё (детали)"><input type="text" class="form__input" placeholder="Плановая производительность" name="Плановая производительность"></div>
+        <div class="form__row"><select class="form__select" name="Есть ли помещение?"><option value="">Есть ли помещение?</option><option value="yes">Да</option><option value="no">Нет</option></select><select class="form__select" name="Источник энергии"><option value="">Газ / электричество / дизель</option><option value="gas">Газ</option><option value="electric">Электричество</option><option value="diesel">Дизель</option></select></div>
+        <textarea class="form__textarea" placeholder="Комментарий" name="Комментарий"></textarea>
         <button type="submit" class="btn btn-primary btn--full">Расчёт линии кормов для животных</button>
       </form>
     </div></section>

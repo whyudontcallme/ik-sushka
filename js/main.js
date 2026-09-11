@@ -1,24 +1,77 @@
-function handleSubmit(event, type) {
-  event.preventDefault();
-  const form = event.target;
-  const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries());
+const TELEGRAM_BOT_TOKEN = '8969958338:AAHXzPVaQ5nEXLxOnM4eTBuJul3i3PKK6sA';
+const TELEGRAM_CHAT_ID = '1198189098';
 
-  console.log('Form type:', type);
-  console.log('Form data:', data);
+const FORM_LABELS = {
+  food: 'Пищевая промышленность',
+  barf: 'BARF-корма и лакомства',
+  chemical: 'Химическая промышленность'
+};
 
-  const button = form.querySelector('button[type="submit"]');
-  const originalText = button.textContent;
-  button.textContent = 'Отправлено ✓';
-  button.style.background = 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)';
-  button.style.boxShadow = '0 4px 16px rgba(34, 197, 94, 0.3)';
+const SELECT_LABELS = {
+  'Есть ли помещение?': { yes: 'Да', no: 'Нет', building: 'Строим' },
+  'Источник энергии': { gas: 'Газ', electric: 'Электричество', diesel: 'Дизель' },
+  'Есть ли растворители?': { yes: 'Да', no: 'Нет', maybe: 'Не знаю' },
+  'Сырьё': { meat: 'Мясо', fish: 'Рыба', offal: 'Субпродукты', mix: 'Смесь' }
+};
 
+const SUCCESS_STYLE = { background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)', boxShadow: '0 4px 16px rgba(34, 197, 94, 0.3)' };
+const ERROR_STYLE = { background: 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)', boxShadow: '0 4px 16px rgba(239, 68, 68, 0.3)' };
+
+function showFormStatus(button, originalText, text, colors) {
+  button.textContent = text;
+  button.style.background = colors.background;
+  button.style.boxShadow = colors.boxShadow;
   setTimeout(() => {
     button.textContent = originalText;
     button.style.background = '';
     button.style.boxShadow = '';
-    form.reset();
+    button.disabled = false;
   }, 3000);
+}
+
+function formatFieldValue(name, value) {
+  const map = SELECT_LABELS[name];
+  return map && map[value] ? map[value] : value;
+}
+
+function buildTelegramMessage(form, type) {
+  const fd = new FormData(form);
+  const title = FORM_LABELS[type] || 'Новая заявка';
+  const lines = ['📩 <b>Новая заявка — ' + title + '</b>'];
+
+  for (const [key, value] of fd.entries()) {
+    if (typeof value === 'string' && value.trim() !== '') {
+      lines.push('• <b>' + key + ':</b> ' + formatFieldValue(key, value.trim()));
+    }
+  }
+
+  lines.push('🕒 ' + new Date().toLocaleString('ru-RU'));
+  return lines.join('\n');
+}
+
+async function handleSubmit(event, type) {
+  event.preventDefault();
+  const form = event.target;
+  const button = form.querySelector('button[type="submit"]');
+  const originalText = button.textContent;
+  button.disabled = true;
+  button.textContent = 'Отправляем…';
+
+  const message = buildTelegramMessage(form, type);
+  const url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
+
+  try {
+    await fetch(url, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message, parse_mode: 'HTML' })
+    });
+    showFormStatus(button, originalText, 'Отправлено ✓', SUCCESS_STYLE);
+    form.reset();
+  } catch (e) {
+    showFormStatus(button, originalText, 'Ошибка, попробуйте ещё раз', ERROR_STYLE);
+  }
 }
 
 function initMobileMenu() {
