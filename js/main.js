@@ -1,5 +1,5 @@
 const TELEGRAM_BOT_TOKEN = '8969958338:AAHXzPVaQ5nEXLxOnM4eTBuJul3i3PKK6sA';
-const TELEGRAM_CHAT_ID = '1198189098';
+const TELEGRAM_CHAT_ID = '1408464066';
 
 const FORM_LABELS = {
   food: 'Пищевая промышленность',
