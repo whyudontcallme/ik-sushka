@@ -1,6 +1,6 @@
 const TELEGRAM_BOT_TOKEN = '8969958338:AAHXzPVaQ5nEXLxOnM4eTBuJul3i3PKK6sA';
 const TELEGRAM_CHAT_ID = '1408464066';
-const RELAY_ENDPOINT = '';
+const RELAY_ENDPOINT = 'https://ik-sushka.vercel.app/api/send';
 
 const FORM_LABELS = {
   food: 'Пищевая промышленность',
@@ -35,6 +35,10 @@ function formatFieldValue(name, value) {
   return map && map[value] ? map[value] : value;
 }
 
+function escapeHtml(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 function buildTelegramMessage(form, type) {
   const fd = new FormData(form);
   const title = FORM_LABELS[type] || 'Новая заявка';
@@ -42,7 +46,7 @@ function buildTelegramMessage(form, type) {
 
   for (const [key, value] of fd.entries()) {
     if (typeof value === 'string' && value.trim() !== '') {
-      lines.push('• <b>' + key + ':</b> ' + formatFieldValue(key, value.trim()));
+      lines.push('• <b>' + escapeHtml(key) + ':</b> ' + escapeHtml(formatFieldValue(key, value.trim())));
     }
   }
 
