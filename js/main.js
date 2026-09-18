@@ -59,21 +59,30 @@ async function handleSubmit(event, type) {
 
   const message = buildTelegramMessage(form, type);
   const url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
+  const payload = new URLSearchParams({
+    chat_id: TELEGRAM_CHAT_ID,
+    text: message,
+    parse_mode: 'HTML'
+  }).toString();
+
+  const send = () => fetch(url, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: payload
+  });
 
   try {
-    await fetch(url, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        chat_id: TELEGRAM_CHAT_ID,
-        text: message,
-        parse_mode: 'HTML'
-      }).toString()
-    });
+    try {
+      await send();
+    } catch (e) {
+      await new Promise(r => setTimeout(r, 1500));
+      await send();
+    }
     showFormStatus(button, originalText, 'Отправлено ✓', SUCCESS_STYLE);
     form.reset();
   } catch (e) {
+    console.error('Telegram send failed:', e);
     showFormStatus(button, originalText, 'Ошибка, попробуйте ещё раз', ERROR_STYLE);
   }
 }
