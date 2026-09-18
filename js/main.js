@@ -1,5 +1,6 @@
 const TELEGRAM_BOT_TOKEN = '8969958338:AAHXzPVaQ5nEXLxOnM4eTBuJul3i3PKK6sA';
 const TELEGRAM_CHAT_ID = '1408464066';
+const RELAY_ENDPOINT = '';
 
 const FORM_LABELS = {
   food: 'Пищевая промышленность',
@@ -58,26 +59,36 @@ async function handleSubmit(event, type) {
   button.textContent = 'Отправляем…';
 
   const message = buildTelegramMessage(form, type);
-  const url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
-  const payload = new URLSearchParams({
-    chat_id: TELEGRAM_CHAT_ID,
-    text: message,
-    parse_mode: 'HTML'
-  }).toString();
-
-  const send = () => fetch(url, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: payload
-  });
 
   try {
-    try {
-      await send();
-    } catch (e) {
-      await new Promise(r => setTimeout(r, 1500));
-      await send();
+    if (RELAY_ENDPOINT.indexOf('https://') === 0) {
+      const res = await fetch(RELAY_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: message })
+      });
+      if (!res.ok) throw new Error('relay status ' + res.status);
+    } else {
+      const url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
+      const payload = new URLSearchParams({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: message,
+        parse_mode: 'HTML'
+      }).toString();
+
+      const send = () => fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: payload
+      });
+
+      try {
+        await send();
+      } catch (e) {
+        await new Promise(r => setTimeout(r, 1500));
+        await send();
+      }
     }
     showFormStatus(button, originalText, 'Отправлено ✓', SUCCESS_STYLE);
     form.reset();
